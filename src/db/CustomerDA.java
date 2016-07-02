@@ -1,13 +1,27 @@
 package db;
+
+import model.Customer;
+
 import java.sql.*;
+import java.util.ArrayList;
 
 
 public class CustomerDA{
 
     static Connection con = null;
     static PreparedStatement pre = null;
-    static ResultSet result = null;
-
+    static ResultSet rs = null;
+    
+    static String customerID;
+    static String identificationID;
+    static String deliverTime;
+    static String customerNature;
+    static String fixedPhone;
+    static String unitName;
+    static String mobilePhone;
+    static String contacts;
+    static String email;
+    
 	public static Connection initialize()
 	{
 		try {
@@ -30,8 +44,8 @@ public class CustomerDA{
 	{
         try
         {
-            if (result != null)
-                result.close();
+            if (rs != null)
+                rs.close();
             if (pre != null)
                 pre.close();
             if (con != null)
@@ -43,22 +57,213 @@ public class CustomerDA{
         }
 	}
 
-	public static String findall()
+	//添加客户
+	public static boolean add(Customer incustomer)
 	{
-		String customerID = null;
+		boolean is;
+		customerID = incustomer.getCustomerID();
+		identificationID = incustomer.getIdentificationID();
+		deliverTime = incustomer.getDeliverTime();
+		customerNature = incustomer.getCustomerNature();
+		fixedPhone = incustomer.getFixedPhone();
+		unitName = incustomer.getUnitName();
+		mobilePhone = incustomer.getMobilePhone();
+		contacts = incustomer.getContacts();
+		email = incustomer.getEmail();
+		
 	    try
 	    {
-	        String sql = "select * from CUSTOMER";
+	        String sql = "INSERT INTO CUSTOMER (CUSTOMERID,IDENTIFICATIONID,DELIVERTIME,CUSTOMERNATURE,FIXEDPHONE,UNITNAME,MOBILEPHONE,CONTACTS,EMAIL) "
+	                     +"VALUES ('"+customerID+"','"+identificationID+"','"+deliverTime+"','"+customerNature+"','"+fixedPhone+"','"+unitName+"','"+mobilePhone+"','"+contacts+"','"+email+"')";
 	        pre = con.prepareStatement(sql);
-	        result = pre.executeQuery();
-	        while (result.next())
-	            customerID += result.getString("CUSTOMERID");
+	        pre.executeUpdate();
+	        is = true;
+	    }
+	    catch (Exception e)
+	    {
+	    	is = false;
+	        e.printStackTrace();
+	    }
+	    return is;
+	}
+
+	//修改客户
+	public static void change(Customer incustomer)
+	{
+		customerID = incustomer.getCustomerID();
+		identificationID = incustomer.getIdentificationID();
+		deliverTime = incustomer.getDeliverTime();
+		customerNature = incustomer.getCustomerNature();
+		fixedPhone = incustomer.getFixedPhone();
+		unitName = incustomer.getUnitName();
+		mobilePhone = incustomer.getMobilePhone();
+		contacts = incustomer.getContacts();
+		email = incustomer.getEmail();
+		
+	    try
+	    {
+	        String sql = "Update CUSTOMER SET IDENTIFICATIONID = '"+identificationID+"',"
+	                      +" DELIVERTIME = '"+deliverTime+"',"+" CUSTOMERNATURE = '"+customerNature+"',"
+	        		      +" FIXEDPHONE = '"+fixedPhone+"',"+" UNITNAME = '"+unitName+"',"+" MOBILEPHONE = '"
+	                      +mobilePhone+"',"+" CONTACTS = '"+contacts+"'"+" EMAIL = '"+email+"'"+" WHERE CUSTOMERID="+customerID;
+	        pre = con.prepareStatement(sql);
+	        pre.executeUpdate();
 	    }
 	    catch (Exception e)
 	    {
 	        e.printStackTrace();
 	    }
-	    return customerID;
+	}	
+
+	//删除客户
+	public static void del(String incustomerID)
+	{	
+	    try
+	    {
+	        String sql = "DELETE FROM CUSTOMER "+"WHERE CUSTOMERID=" + incustomerID;
+	        pre = con.prepareStatement(sql);
+	        pre.executeUpdate();
+	    }
+	    catch (Exception e)
+	    {
+	        e.printStackTrace();
+	    }
+	}
+
+	//根据客户编号查询
+	public static ArrayList<Customer> findbyID(String incustomerID)
+	{
+		ArrayList<Customer> list = new ArrayList<Customer>();
+	    try
+	    {
+	        String sql = "select * from CUSTOMER WHERE CUSTOMERID = '" + incustomerID +"'";
+	        pre = con.prepareStatement(sql);
+	        rs = pre.executeQuery();
+	        while (rs.next())
+	        {
+	        	customerID = rs.getString("CUSTOMERID");
+	        	identificationID = rs.getString("IDENTIFICATIONID");
+	        	deliverTime = rs.getString("DELIVERTIME");
+	        	customerNature = rs.getString("CUSTOMERNATURE");
+	        	fixedPhone = rs.getString("FIXEDPHONE");
+	        	unitName = rs.getString("UNITNAME");
+	        	mobilePhone = rs.getString("MOBILEPHONE");
+	        	contacts = rs.getString("CONTACTS");
+	        	email = rs.getString("EMAIL");
+	        	
+	        	Customer customer = new Customer(customerID, identificationID, deliverTime, 
+	        			                         customerNature, fixedPhone, unitName,
+	        			                         mobilePhone, contacts, email);
+	        	list.add(customer);
+	        }
+	    }
+	    catch (Exception e)
+	    {
+	        e.printStackTrace();
+	    }
+	    return list;
+	}
+	
+	//根据身份证号查询
+	public static ArrayList<Customer> findbyIDID(String inidentificationID)
+	{
+		ArrayList<Customer> list = new ArrayList<Customer>();
+	    try
+	    {
+	        String sql = "select * from CUSTOMER WHERE IDENTIFICATIONID = '" + inidentificationID +"'";
+	        pre = con.prepareStatement(sql);
+	        rs = pre.executeQuery();
+	        while (rs.next())
+	        {
+	        	customerID = rs.getString("CUSTOMERID");
+	        	identificationID = rs.getString("IDENTIFICATIONID");
+	        	deliverTime = rs.getString("DELIVERTIME");
+	        	customerNature = rs.getString("CUSTOMERNATURE");
+	        	fixedPhone = rs.getString("FIXEDPHONE");
+	        	unitName = rs.getString("UNITNAME");
+	        	mobilePhone = rs.getString("MOBILEPHONE");
+	        	contacts = rs.getString("CONTACTS");
+	        	email = rs.getString("EMAIL");
+	        	
+	        	Customer customer = new Customer(customerID, identificationID, deliverTime, 
+	        			                         customerNature, fixedPhone, unitName,
+	        			                         mobilePhone, contacts, email);
+	        	list.add(customer);
+	        }
+	    }
+	    catch (Exception e)
+	    {
+	        e.printStackTrace();
+	    }
+	    return list;
+	}
+	
+	//根据客户编号和身份证的结合查询
+	public static ArrayList<Customer> findbytwo(String incustomerID, String inidentificationID)
+	{
+		ArrayList<Customer> list = new ArrayList<Customer>();
+	    try
+	    {
+	        String sql = "select * from CUSTOMER WHERE IDENTIFICATIONID = '" + inidentificationID +"'"
+	        		     + "AND CUSTOMERID = '" + incustomerID + "'";
+	        pre = con.prepareStatement(sql);
+	        rs = pre.executeQuery();
+	        while (rs.next())
+	        {
+	        	customerID = rs.getString("CUSTOMERID");
+	        	identificationID = rs.getString("IDENTIFICATIONID");
+	        	deliverTime = rs.getString("DELIVERTIME");
+	        	customerNature = rs.getString("CUSTOMERNATURE");
+	        	fixedPhone = rs.getString("FIXEDPHONE");
+	        	unitName = rs.getString("UNITNAME");
+	        	mobilePhone = rs.getString("MOBILEPHONE");
+	        	contacts = rs.getString("CONTACTS");
+	        	email = rs.getString("EMAIL");
+	        	
+	        	Customer customer = new Customer(customerID, identificationID, deliverTime, 
+	        			                         customerNature, fixedPhone, unitName,
+	        			                         mobilePhone, contacts, email);
+	        	list.add(customer);
+	        }
+	    }
+	    catch (Exception e)
+	    {
+	        e.printStackTrace();
+	    }
+	    return list;
+	}
+	//根据客户编号和身份证的结合查询
+	public static ArrayList<Customer> findall()
+	{
+		ArrayList<Customer> list = new ArrayList<Customer>();
+	    try
+	    {
+	        String sql = "select * from CUSTOMER";
+	        pre = con.prepareStatement(sql);
+	        rs = pre.executeQuery();
+	        while (rs.next())
+	        {
+	        	customerID = rs.getString("CUSTOMERID");
+	        	identificationID = rs.getString("IDENTIFICATIONID");
+	        	deliverTime = rs.getString("DELIVERTIME");
+	        	customerNature = rs.getString("CUSTOMERNATURE");
+	        	fixedPhone = rs.getString("FIXEDPHONE");
+	        	unitName = rs.getString("UNITNAME");
+	        	mobilePhone = rs.getString("MOBILEPHONE");
+	        	contacts = rs.getString("CONTACTS");
+	        	email = rs.getString("EMAIL");
+	        	
+	        	Customer customer = new Customer(customerID, identificationID, deliverTime, 
+	        			                         customerNature, fixedPhone, unitName,
+	        			                         mobilePhone, contacts, email);
+	        	list.add(customer);
+	        }
+	    }
+	    catch (Exception e)
+	    {
+	        e.printStackTrace();
+	    }
+	    return list;
 	}
 
 }
