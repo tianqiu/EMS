@@ -115,8 +115,8 @@ public class PartRequestListDA{
 	        	partName = rs.getString("PARTNAME");
 	        	type = rs.getString("TYPE");
 	        	serviceID = rs.getString("SERVICEID");
-	        	num = rs.getString("NUM");
-	        	price = rs.getString("PRICE");
+	        	num = rs.getInt("NUM");
+	        	price = rs.getInt("PRICE");
 	        	deliveryTime = rs.getString("DELIVERYTIME");
 	      
 	        	

@@ -109,9 +109,9 @@ public class RepairListDA{
 		        	serviceTime = rs.getString("SERVICETIME");
 		        	workLoad = rs.getString("WORKLOAD");
 		        	neededPart = rs.getString("NEEDEDPART");
-		        	serviceState = rs.getString("SERVICESTATE");
+		        	serviceState = rs.getInt("SERVICESTATE");
 		        	
-		        	RepairList repairlist = new RepairList(serviceID,worker,inspectionRecord,serviceRecord,serviceTime,workLoad,neededPart,serviceState);		        	
+		            repairlist = new RepairList(serviceID,worker,inspectionRecord,serviceRecord,serviceTime,workLoad,neededPart,serviceState);		        	
 		        }
 		    }
 		    catch (Exception e)
@@ -207,7 +207,7 @@ public class RepairListDA{
 	        	serviceTime = rs.getString("SERVICETIME");
 	        	workLoad = rs.getString("WORKLOAD");
 	        	neededPart = rs.getString("NEEDEDPART");
-	        	serviceState = rs.getString("SERVICESTATE");
+	        	serviceState = rs.getInt("SERVICESTATE");
 	        	
 	        	RepairList repairlist = new RepairList(serviceID,worker,inspectionRecord,serviceRecord,serviceTime,workLoad,neededPart,serviceState);
 	        	list.add(repairlist);

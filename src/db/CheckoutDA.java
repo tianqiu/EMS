@@ -117,13 +117,13 @@ public class CheckoutDA{
 		        {
 		        	
 		        	serviceID = rs.getString("SERVICEID");
-		        	serviceCost = rs.getString("SERVICECOST");
-		        	materialCost = rs.getString("MATERIALCOST");
+		        	serviceCost = rs.getInt("SERVICECOST");
+		        	materialCost = rs.getInt("MATERIALCOST");
 		        	serviceCommitment = rs.getString("SERVICECOMMITMENT");
 		        	caution = rs.getString("CAUTION");
 		        	endDate = rs.getString("ENDDATE");
 		        	
-		        	Checkout checkout = new Checkout(serviceID,serviceCost,materialCost,serviceCommitment,caution,endDate);
+		            checkout = new Checkout(serviceID,serviceCost,materialCost,serviceCommitment,caution,endDate);
 		        	
 		        }
 		    }
