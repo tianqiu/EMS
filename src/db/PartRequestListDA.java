@@ -13,6 +13,13 @@ public class PartRequestListDA{
     static ResultSet rs = null;
     
     
+    static String partName;
+	static String type;
+	static String serviceID;
+	static int num;
+	static int price;
+	static String deliveryTime;
+    
 	public static Connection initialize()
 	{
 		try {
@@ -48,22 +55,81 @@ public class PartRequestListDA{
         }
 	}
 
-	//添加
+	//娣诲姞
 	public static void add(PartRequestList inpartrequestlist)
 	{
+		partName = inpartrequestlist.getPartName();
+		type = inpartrequestlist.getType();
+		serviceID = inpartrequestlist.getServiceID();
+		num = inpartrequestlist.getNum();
+		price = inpartrequestlist.getPrice();
+		deliveryTime = inpartrequestlist.getDeliveryTime();
+		
+		  try
+		    {
+		        String sql = "INSERT INTO PARTREQUESTLIST (PARTNAME,TYPE,SERVICEID,NUM,PRICE,DELIVERYTIME) "
+		                     +"VALUES ('"+partName+"','"+type+"','"+serviceID+"','"+num+"','"+price+"','"+deliveryTime+"')";
+		        pre = con.prepareStatement(sql);
+		        pre.executeUpdate();
+		       
+		    }
+		    catch (Exception e)
+		    {
+		        e.printStackTrace();
+		    }
 
 	}
 
-	//删除
+	//鍒犻櫎
 	public static void del(String inserviceID)
+	
 	{
+		
+		try
+    {
+        String sql = "DELETE FROM PARTREQUESTLIST "+"WHERE SERVICEID=" + inserviceID;
+        pre = con.prepareStatement(sql);
+        pre.executeUpdate();
+    }
+        catch (Exception e)
+    {
+        e.printStackTrace();
+    }
+		
 
 	}	
 
-	//查询所有
+	//鏌ヨ鎵�湁
 	public static ArrayList<PartRequestList> findall()
 	{
+		
+		
 		ArrayList<PartRequestList> list = new ArrayList<PartRequestList>();
-		return list;
+	    try
+	    {
+	        String sql = "select * from PARTREQUESTLIST";
+	        pre = con.prepareStatement(sql);
+	        rs = pre.executeQuery();
+	        while (rs.next())
+	        {
+	        	partName = rs.getString("PARTNAME");
+	        	type = rs.getString("TYPE");
+	        	serviceID = rs.getString("SERVICEID");
+	        	num = rs.getString("NUM");
+	        	price = rs.getString("PRICE");
+	        	deliveryTime = rs.getString("DELIVERYTIME");
+	      
+	        	
+	        	PartRequestList partrequestlist = new PartRequestList(partName,type,serviceID,num,price,deliveryTime);
+	        	list.add(partrequestlist);
+	        }
+	    }
+	    catch (Exception e)
+	    {
+	        e.printStackTrace();
+	    }
+	    return list;
 	}
-}
+		
+		
+}	
