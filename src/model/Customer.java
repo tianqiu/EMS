@@ -1,6 +1,8 @@
 package model;
 
-public class Customer {
+import java.io.Serializable;
+
+public class Customer implements Serializable {
 	String customerID;
 	String identificationID;
 	String deliverTime;
@@ -84,7 +86,11 @@ public class Customer {
 	}
 	
 	
-	
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return super.toString();
+	}
 	
 	
 

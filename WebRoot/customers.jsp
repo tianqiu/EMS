@@ -1,3 +1,4 @@
+<%@ page language="java" import="model.Customer" contentType="text/html" pageEncoding="UTF-8"%>
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -12,6 +13,7 @@
 	<link rel="stylesheet" type="text/css" href="css/style.css"/>
 	<link rel="stylesheet" type="text/css" href="css/customers.css"/>
 </head>
+
 <body>
 <div class="none">
 </div>
@@ -66,7 +68,7 @@
 			<div class ="tips">
 			    
 			</div>
-		<button class = "bt" type="submit">查询</button>
+		<button class = "bt" type="submit" onclick="getcustomers()">查询</button>
 	    </div>
 	
 	
@@ -117,9 +119,15 @@
 		<button class = "delete" type="submit" onclick="deletebt()">删除</button>
 	</div>
 </div>
+<%
+String ss = "";
+Customer aCustomer = (Customer)session.getAttribute("a"); 
+if(aCustomer != null)
+	ss = (String)aCustomer.getCustomerID();
+%>
 <div class="customer">
 	<div class="customerblock">
-		<div class="customernum">01</div>
+		<div class="customernum"><%=ss%></div>
 		<div class="customername">asdasdas</div>
 		<div class="customeridnum">133131245679043345</div>
 		<button class = "change" type="submit" onclick="changebt()">修改</button>
@@ -128,6 +136,7 @@
 </div>
 <div class="customer">
 	<div class="customerblock">
+
 		<div class="customernum">01</div>
 		<div class="customername">asdasdas</div>
 		<div class="customeridnum">133131245679043345</div>
@@ -141,6 +150,18 @@
 </html>
 
 <script>
+function getcustomers() {
+	event.preventDefault();
+    var a="1";
+    $.post("/EMS/GetCustomers",
+	{
+		CustomerID:a
+	},
+	function(data,status){
+      	location.reload()
+    });	
+
+}
 
 function bbb() {
 	event.preventDefault();

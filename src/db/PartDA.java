@@ -124,16 +124,9 @@ public class PartDA{
 	        rs = pre.executeQuery();
 	        while (rs.next())
 	        {
-	        	partName=rs.getString("PARTNAME");
 	            type=rs.getString("TYPE");
-	            price=rs.getInt("PRICE");
-	            num=rs.getInt("NUM");
-	            date=rs.getString("DATE");
-	            warnNum=rs.getInt("WARNNUM");
-	            inventoryState=rs.getInt("INVENTORYSTATE");
 	        	
-	            Part part = new Part(partName,type,price,num,date,warnNum,inventoryState);
-	        	list.add(part);
+	        	list.add(type);
 	        }
 	    }
 	    catch (Exception e)
