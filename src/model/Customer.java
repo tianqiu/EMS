@@ -12,11 +12,13 @@ public class Customer implements Serializable {
 	String mobilePhone;
 	String contacts;
 	String email;
-	
+	String postCode;
+	String address;
 	
 	public Customer(String customerID, String identificationID,
 			String deliverTime, String customerNature, String fixedPhone,
-			String unitName, String mobilePhone, String contacts, String email) {
+			String unitName, String mobilePhone, String contacts, String email,
+			String postCode, String address) {
 		super();
 		this.customerID = customerID;
 		this.identificationID = identificationID;
@@ -27,6 +29,8 @@ public class Customer implements Serializable {
 		this.mobilePhone = mobilePhone;
 		this.contacts = contacts;
 		this.email = email;
+		this.postCode = postCode;
+		this.address = address;
 	}
 	
 	
@@ -72,6 +76,27 @@ public class Customer implements Serializable {
 	public void setMobilePhone(String mobilePhone) {
 		this.mobilePhone = mobilePhone;
 	}
+
+	public String getPostCode() {
+		return postCode;
+	}
+
+
+	public void setPostCode(String postCode) {
+		this.postCode = postCode;
+	}
+
+
+	public String getAddress() {
+		return address;
+	}
+
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+
 	public String getContacts() {
 		return contacts;
 	}

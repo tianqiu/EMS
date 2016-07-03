@@ -123,7 +123,7 @@ function getcustomers() {
 
 function bbb() {
 	event.preventDefault();
-    location.href="customer.jsp";
+    location.href="customeradd.jsp";
 }
 function changebt(obj) {
 	event.preventDefault();
@@ -134,12 +134,31 @@ function changebt(obj) {
 		CustomerID:pid,
 	},
 	function(data,status){
-      	
+      	location.href="customer.jsp";
     });	
 }
 
-function deletebt() {
-	confirm("确定要删除吗？");
+function deletebt(obj) {
+	event.preventDefault();
+	var pid = $(obj).parent().attr("id");
+	var is = confirm("确定要删除吗？");
+	if(is == true)
+	{
+	    $.post("/EMS/DelCustomer",
+		{
+			CustomerID:pid,
+		},
+		function(data,status){
+		    $.post("/EMS/GetCustomers",
+			{
+				CustomerID:"null",
+				IdentificationID:"null"
+			},
+			function(data,status){
+		      	location.reload()
+		    });	
+	    });	
+	}
 }
 
 function enter(x) {

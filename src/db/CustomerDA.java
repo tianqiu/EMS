@@ -21,6 +21,8 @@ public class CustomerDA{
     static String mobilePhone;
     static String contacts;
     static String email;
+    static String postCode;
+    static String address;
     
 	public static Connection initialize()
 	{
@@ -70,11 +72,13 @@ public class CustomerDA{
 		mobilePhone = incustomer.getMobilePhone();
 		contacts = incustomer.getContacts();
 		email = incustomer.getEmail();
+		postCode = incustomer.getPostCode();
+		address = incustomer.getAddress();
 		
 	    try
 	    {
-	        String sql = "INSERT INTO CUSTOMER (CUSTOMERID,IDENTIFICATIONID,DELIVERTIME,CUSTOMERNATURE,FIXEDPHONE,UNITNAME,MOBILEPHONE,CONTACTS,EMAIL) "
-	                     +"VALUES ('"+customerID+"','"+identificationID+"','"+deliverTime+"','"+customerNature+"','"+fixedPhone+"','"+unitName+"','"+mobilePhone+"','"+contacts+"','"+email+"')";
+	        String sql = "INSERT INTO CUSTOMER (CUSTOMERID,IDENTIFICATIONID,DELIVERTIME,CUSTOMERNATURE,FIXEDPHONE,UNITNAME,MOBILEPHONE,CONTACTS,EMAIL,POSTCODE,ADDRESS) "
+	                     +"VALUES ('"+customerID+"','"+identificationID+"','"+deliverTime+"','"+customerNature+"','"+fixedPhone+"','"+unitName+"','"+mobilePhone+"','"+contacts+"','"+email+"','"+postCode+"','"+address+"')";
 	        pre = con.prepareStatement(sql);
 	        pre.executeUpdate();
 	        is = true;
@@ -99,13 +103,16 @@ public class CustomerDA{
 		mobilePhone = incustomer.getMobilePhone();
 		contacts = incustomer.getContacts();
 		email = incustomer.getEmail();
+		postCode = incustomer.getPostCode();
+		address = incustomer.getAddress();
 		
 	    try
 	    {
 	        String sql = "Update CUSTOMER SET IDENTIFICATIONID = '"+identificationID+"',"
 	                      +" DELIVERTIME = '"+deliverTime+"',"+" CUSTOMERNATURE = '"+customerNature+"',"
 	        		      +" FIXEDPHONE = '"+fixedPhone+"',"+" UNITNAME = '"+unitName+"',"+" MOBILEPHONE = '"
-	                      +mobilePhone+"',"+" CONTACTS = '"+contacts+"'"+" EMAIL = '"+email+"'"+" WHERE CUSTOMERID="+customerID;
+	                      +mobilePhone+"',"+" CONTACTS = '"+contacts+"',"+" EMAIL = '"+email+"',"+" POSTCODE = '"
+	        		      +postCode+"',"+" ADDRESS = '"+address+"'"+" WHERE CUSTOMERID="+customerID;
 	        pre = con.prepareStatement(sql);
 	        pre.executeUpdate();
 	    }
@@ -150,10 +157,12 @@ public class CustomerDA{
 	        	mobilePhone = rs.getString("MOBILEPHONE");
 	        	contacts = rs.getString("CONTACTS");
 	        	email = rs.getString("EMAIL");
+	        	postCode = rs.getString("POSTCODE");
+	        	address = rs.getString("ADDRESS");
 	        	
 	        	Customer customer = new Customer(customerID, identificationID, deliverTime, 
 	        			                         customerNature, fixedPhone, unitName,
-	        			                         mobilePhone, contacts, email);
+	        			                         mobilePhone, contacts, email,postCode,address);
 	        	list.add(customer);
 	        }
 	    }
@@ -184,10 +193,12 @@ public class CustomerDA{
 	        	mobilePhone = rs.getString("MOBILEPHONE");
 	        	contacts = rs.getString("CONTACTS");
 	        	email = rs.getString("EMAIL");
+	        	postCode = rs.getString("POSTCODE");
+	        	address = rs.getString("ADDRESS");
 	        	
 	        	Customer customer = new Customer(customerID, identificationID, deliverTime, 
 	        			                         customerNature, fixedPhone, unitName,
-	        			                         mobilePhone, contacts, email);
+	        			                         mobilePhone, contacts, email,postCode,address);
 	        	list.add(customer);
 	        }
 	    }
@@ -219,10 +230,12 @@ public class CustomerDA{
 	        	mobilePhone = rs.getString("MOBILEPHONE");
 	        	contacts = rs.getString("CONTACTS");
 	        	email = rs.getString("EMAIL");
+	        	postCode = rs.getString("POSTCODE");
+	        	address = rs.getString("ADDRESS");
 	        	
 	        	Customer customer = new Customer(customerID, identificationID, deliverTime, 
 	        			                         customerNature, fixedPhone, unitName,
-	        			                         mobilePhone, contacts, email);
+	        			                         mobilePhone, contacts, email, postCode, address);
 	        	list.add(customer);
 	        }
 	    }
@@ -252,10 +265,12 @@ public class CustomerDA{
 	        	mobilePhone = rs.getString("MOBILEPHONE");
 	        	contacts = rs.getString("CONTACTS");
 	        	email = rs.getString("EMAIL");
+	        	postCode = rs.getString("POSTCODE");
+	        	address = rs.getString("ADDRESS");
 	        	
 	        	Customer customer = new Customer(customerID, identificationID, deliverTime, 
 	        			                         customerNature, fixedPhone, unitName,
-	        			                         mobilePhone, contacts, email);
+	        			                         mobilePhone, contacts, email, postCode, address);
 	        	list.add(customer);
 	        }
 	    }

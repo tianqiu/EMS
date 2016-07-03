@@ -17,8 +17,8 @@ import javax.servlet.http.HttpSession;
 /**
  * Servlet implementation class GetCustomers
  */
-@WebServlet("/GetCustomers")
-public class GetCustomers extends HttpServlet{
+@WebServlet("/GetCustomer")
+public class GetCustomer extends HttpServlet{
 	Customer customer;
 	String customerID;
 	String identificationID;
@@ -31,34 +31,18 @@ public class GetCustomers extends HttpServlet{
 		HttpSession session = req.getSession();
 		req.setCharacterEncoding("UTF-8");
 		resp.setContentType("text/html;charset=utf-8");
-		ArrayList<Customer> list = new ArrayList<Customer>();
+		ArrayList<Customer> list;
 		try 
 		{
 			
 			customerID = req.getParameter("CustomerID");
-			identificationID = req.getParameter("IdentificationID");
 			
 			PrintWriter out = resp.getWriter();
 			
 			
-			if(customerID == "" && identificationID == "")
-			{
-				list = CustomerDA.findall();
-			}
-			else if(customerID == "" && identificationID != "")
-			{
-				list = CustomerDA.findbyIDID(identificationID);
-			}
-			else if(customerID != "" && identificationID == "")
-			{
-				list = CustomerDA.findbyID(customerID);
-			}
-			else 
-			{
-				list = CustomerDA.findbytwo(customerID, identificationID);
-			}
+			list = CustomerDA.findbyID(customerID);
 			
-			session.setAttribute("customerList",list);
+			session.setAttribute("customer",list.get(0));
 
 			out.close();
 		} 
