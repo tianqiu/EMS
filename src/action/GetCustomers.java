@@ -20,6 +20,15 @@ import javax.servlet.http.HttpSession;
 @WebServlet("/GetCustomers")
 public class GetCustomers extends HttpServlet{
 	Customer customer;
+	String customerID;
+	String identificationID;
+	String deliverTime;
+	String customerNature;
+	String fixedPhone;
+	String unitName;
+	String mobilePhone;
+	String contacts;
+	String email;
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
@@ -27,23 +36,37 @@ public class GetCustomers extends HttpServlet{
 		
 		String data="";
 		HttpSession session = req.getSession();
-		
 		req.setCharacterEncoding("UTF-8");
-		
-
+		resp.setContentType("text/html;charset=utf-8");
+		ArrayList<Customer> list = new ArrayList<Customer>();
 		try 
 		{
-			ArrayList<Customer> list = new ArrayList<Customer>();
-			resp.setContentType("text/html;charset=utf-8");
+			
+			customerID = req.getParameter("CustomerID");
+			identificationID = req.getParameter("IdentificationID");
+			
 			PrintWriter out = resp.getWriter();
-			list=CustomerDA.findall();	
-			System.out.println(list.get(0).getCustomerID());
-			data = list.get(0).getCustomerID();
-			session.setAttribute("a",list.get(0));
-			req.setAttribute("a", list.get(0));
-			//Customer aCustomer = (Customer) session.getAttribute("a");
-			//System.err.println("WQ" + aCustomer.getCustomerID());
-			out.print(data);
+			
+			
+			if(customerID == "" && identificationID == "")
+			{
+				list = CustomerDA.findall();
+			}
+			else if(customerID == "" && identificationID != "")
+			{
+				list = CustomerDA.findbyIDID(identificationID);
+			}
+			else if(customerID != "" && identificationID == "")
+			{
+				list = CustomerDA.findbyID(customerID);
+			}
+			else 
+			{
+				list = CustomerDA.findbytwo(customerID, identificationID);
+			}
+			
+			session.setAttribute("customerList",list);
+
 			out.close();
 		} 
 		catch (Exception e) {

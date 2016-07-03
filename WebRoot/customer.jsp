@@ -1,3 +1,4 @@
+<%@ page language="java" import="model.Customer" import="java.util.*" contentType="text/html" pageEncoding="UTF-8"%>
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -37,13 +38,19 @@
 </div>
 
 
+<%
+Customer customer = (Customer)session.getAttribute("customer"); 
+%>
+
+
+
 <div class = "info" style="height:auto">
 	<form id="myform">
 		<div class = "contant">
 		    <div class ="tips">
-			<p style="margin-top:6px;padding:0;">   姓名:</p>
+			<p style="margin-top:6px;padding:0;"> *客户编号:</p>
 			</div>
-		<input type="text" placeholder="姓名"  ><br>
+		<input type="text" placeholder="客户编号" id="ID" value="<%=customer.getCustomerID() %>"><br>
 	    </div>
 
 		<div class = "contant">
@@ -131,12 +138,17 @@
 </html>
 
 <script>
+document.getElementById('ID').readOnly=true;
 function isnull() {
 	event.preventDefault();
 	if(document.getElementById('idnum').value == '')
     	alert("身份证不能为空！");
+    else if(document.getElementById('ID').value == '')
+    	alert("客户编号不能为空！");
     else
+    {
     	location.href="customers.jsp";
+    }
 }
 function enter(x) {
     x.style.opacity = "0.5";

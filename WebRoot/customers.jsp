@@ -1,4 +1,4 @@
-<%@ page language="java" import="model.Customer" contentType="text/html" pageEncoding="UTF-8"%>
+<%@ page language="java" import="model.Customer" import="java.util.*" contentType="text/html" pageEncoding="UTF-8"%>
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -47,21 +47,14 @@
 		    <div class ="tips">
 			<p style="margin-top:6px;padding:0;">   编号:</p>
 			</div>
-		<input type="text" placeholder="编号"  ><br>
+		<input type="text" placeholder="编号"  id="ID"><br>
 	    </div>
-		
-		<div class = "contant">
-			<div class ="tips">
-			    姓名:
-			</div>
-			<input type="text" placeholder="姓名"><br>
-		</div>
 
 		<div class = "contant">
 			<div class ="tips">
 			身份证:
 			</div>
-			<input type="text" placeholder="身份证" ><br>
+			<input type="text" placeholder="身份证" id="idID"><br>
 		</div>
 		
 		<div class = "contant">
@@ -89,61 +82,27 @@
 
 
 
-
-
-
-<div class="customer">
-	<div class="customerblock">
-		<div class="customernum">01</div>
-		<div class="customername">asdasdas</div>
-		<div class="customeridnum">133131245679043345</div>
-		<button class = "change" type="submit" onclick="changebt()">修改</button>
-		<button class = "delete" type="submit" onclick="deletebt()">删除</button>
-	</div>
-</div>
-<div class="customer">
-	<div class="customerblock">
-		<div class="customernum">01</div>
-		<div class="customername">asdasdas</div>
-		<div class="customeridnum">133131245679043345</div>
-		<button class = "change" type="submit" onclick="changebt()">修改</button>
-		<button class = "delete" type="submit" onclick="deletebt()">删除</button>
-	</div>
-</div>
-<div class="customer">
-	<div class="customerblock">
-		<div class="customernum">01</div>
-		<div class="customername">asdasdas</div>
-		<div class="customeridnum">133131245679043345</div>
-		<button class = "change" type="submit" onclick="changebt()">修改</button>
-		<button class = "delete" type="submit" onclick="deletebt()">删除</button>
-	</div>
-</div>
 <%
-String ss = "";
-Customer aCustomer = (Customer)session.getAttribute("a"); 
-if(aCustomer != null)
-	ss = (String)aCustomer.getCustomerID();
+int i;
+ArrayList<Customer> list = (ArrayList<Customer>)session.getAttribute("customerList"); 
+if(list != null)
+{
+	for(i = 0;i < list.size(); i++)
+	{
+		out.print("<div class=\"customer\">"
+					+"<div class=\"customerblock\" id=\"" + list.get(i).getCustomerID() + "\">"
+						+"<div class=\"customernum\">"+list.get(i).getCustomerID()+"</div>"
+						+"<div class=\"customernum\"></div>"
+						+"<div class=\"customeridnum\">" + list.get(i).getIdentificationID() + "</div>"
+						+"<button class = \"change\" type=\"submit\" onclick=\"changebt(this)\">修改</button>"
+						+"<button class = \"delete\" type=\"submit\" onclick=\"deletebt(this)\">删除</button>"
+					+"</div>"
+				+"</div>");
+	}
+}
 %>
-<div class="customer">
-	<div class="customerblock">
-		<div class="customernum"><%=ss%></div>
-		<div class="customername">asdasdas</div>
-		<div class="customeridnum">133131245679043345</div>
-		<button class = "change" type="submit" onclick="changebt()">修改</button>
-		<button class = "delete" type="submit" onclick="deletebt()">删除</button>
-	</div>
-</div>
-<div class="customer">
-	<div class="customerblock">
 
-		<div class="customernum">01</div>
-		<div class="customername">asdasdas</div>
-		<div class="customeridnum">133131245679043345</div>
-		<button class = "change" type="submit" onclick="changebt()">修改</button>
-		<button class = "delete" type="submit" onclick="deletebt()">删除</button>
-	</div>
-</div>
+
 
 <div class="none"></div>
 </body>
@@ -152,24 +111,31 @@ if(aCustomer != null)
 <script>
 function getcustomers() {
 	event.preventDefault();
-    var a="1";
     $.post("/EMS/GetCustomers",
 	{
-		CustomerID:a
+		CustomerID:$("#ID").val(),
+		IdentificationID:$("#idID").val()
 	},
 	function(data,status){
       	location.reload()
     });	
-
 }
 
 function bbb() {
 	event.preventDefault();
     location.href="customer.jsp";
 }
-function changebt() {
+function changebt(obj) {
 	event.preventDefault();
-    location.href="customer.jsp";
+	var pid = $(obj).parent().attr("id");
+
+    $.post("/EMS/GetCustomer",
+	{
+		CustomerID:pid,
+	},
+	function(data,status){
+      	
+    });	
 }
 
 function deletebt() {
