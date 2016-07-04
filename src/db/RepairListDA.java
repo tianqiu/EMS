@@ -70,10 +70,6 @@ public class RepairListDA{
 		neededPart = inrepairlist.getNeededPart();
 		serviceState = inrepairlist.getServiceState();
 		
-		
-		
-		
-		
 		  try
 		    {
 		        String sql = "INSERT INTO REPAIRLIST (SERVICEID,WORKER,INSPECTIONRECORD,SERVICERECORD,SERVICETIME,WORKLOAD,NEEDEDPART,SERVICESTATE) "
@@ -118,14 +114,6 @@ public class RepairListDA{
 		    {
 		        e.printStackTrace();
 		    }
-		
-		
-		
-		
-		
-		
-		
-		
 		
 		return repairlist;
 	}	
@@ -208,7 +196,6 @@ public class RepairListDA{
 	        	workLoad = rs.getString("WORKLOAD");
 	        	neededPart = rs.getString("NEEDEDPART");
 	        	serviceState = rs.getInt("SERVICESTATE");
-	        	
 	        	RepairList repairlist = new RepairList(serviceID,worker,inspectionRecord,serviceRecord,serviceTime,workLoad,neededPart,serviceState);
 	        	list.add(repairlist);
 	        }
@@ -218,10 +205,6 @@ public class RepairListDA{
 	        e.printStackTrace();
 	    }
 
-		
-		
-		
-		
 		return list;
 	}
 }

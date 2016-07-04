@@ -1,4 +1,4 @@
-<%@ page language="java" import="model.*" import="java.util.*" contentType="text/html" pageEncoding="UTF-8"%>
+<%@ page language="java" import="db.*" import="model.*" import="java.util.*" contentType="text/html" pageEncoding="UTF-8"%>
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -47,33 +47,53 @@
 				
 				<div class = "contant">
 					<div class ="tips">
-					    请选择师傅:
+					    请选择技工:
 					</div>
-					<select id="producttype">
-						<option value=""></option>
- 						<option value="1">王师傅</option>
-  						<option value="2">李师傅</option>
-  						<option value="3">张师傅</option>
- 						<option value="4">小王师傅</option>
-						<option value="5">老赵师傅</option>
-					</select><br>
-				</div>
+					
+<select id="producttype">
+	<option value=""></option>					
+<% 
+db.LoginDA.initialize();
+int i;
+ArrayList<Loginer> list = LoginDA.findallwoker();
+if(list != null)
+{
+	for(i = 0; i < list.size(); i++)
+	{
+		out.print("<option value=\""+ list.get(i).getLoginID() +"\">"+ list.get(i).getLoginID() +"</option>");
+	}
+}
+db.LoginDA.terminate();
+%>
+</select>
+					
+					
+						
+				<br>
+			</div>
 
-				<div class = "contant">
-			    	<div class ="tips">
-			    	</div>
-		        	<button class = "bt" type="submit" onclick="back()">提交</button>
-	           	</div>
+			<div class = "contant">
+		    	<div class ="tips">
+		    	</div>
+	        	<button class = "bt" type="submit" onclick="back()">提交</button>
+           	</div>
 
-			</form>
+		</form>
 </div>
-
 <div class="none">
 </div>
 </body>
 </html>
 
+<% 
+String pid = request.getParameter("pid");
+%>
+
 <script>
+window.onload=function()
+{
+	
+}
 function click1() {
 event.preventDefault();
     location.href="distribution.jsp";
@@ -88,7 +108,15 @@ function click3() {
 }
 function back(){
     event.preventDefault();
-    location.href="repair.jsp";	
+    alert($("#producttype").val());
+  	$.post("/EMS/Distribute",
+	{
+		WorkerID:$("#producttype").val(),
+		ServiceID:"<%=pid %>"
+	},
+	function(data,status){
+      	location.href="repair.jsp";
+    });
 }
 function enter(x) {
     x.style.opacity = "0.5";

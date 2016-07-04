@@ -16,7 +16,7 @@
 		<div class="container">
 			<br><br><br><br><h1>Welcome</h1>
 			
-			<form  class="form" id="myform" action="servlet/Login" method="post">
+			<form  class="form" id="myform" method="post">
 				<input type="text" placeholder="ID" id="ID">
 				<input type="password" placeholder="Password" id="password">
 				<br><button type="submit" id="login-button">Login</button>
@@ -48,11 +48,23 @@ $('#login-button').click(function (event) {
     else if(document.getElementById('password').value == '')
     	alert("密码不能为空");
     else
-    {
-    	$('form').fadeOut(500);
-		$('.wrapper').addClass('form-success');
-		//alert("${sessionScope.student.ID}");
-		setTimeout(function(){location.href="customers.jsp";},1000);
+    {		
+	    $.post("/EMS/Login",
+		{
+			LoginID:$("#ID").val(),
+			Password:$("#password").val(),
+		},
+		function(data,status){
+			if(data == 'y')
+			{
+		    	$('form').fadeOut(500);
+				$('.wrapper').addClass('form-success');
+				//alert("${sessionScope.loginer.password}");
+				setTimeout(function(){location.href="customers.jsp";},1000);
+	      	}
+	      	else if(data == 'n')
+	      		alert("账号或密码错误！");
+	    });	
     }
 
 

@@ -1,4 +1,4 @@
-<%@ page language="java" import="model.*" import="java.util.*" contentType="text/html" pageEncoding="UTF-8"%>
+<%@ page language="java" import="db.*" import="model.*" import="java.util.*" contentType="text/html" pageEncoding="UTF-8"%>
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -7,6 +7,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>维修管理</title>
 	<script src="js/jquery-2.1.1.min.js" type="text/javascript"></script>
+	<script src="js/jquery-session.js" type="text/javascript"></script>
 	<script src="js/layer.js" type="text/javascript"></script>
 	<link rel="stylesheet" type="text/css" href="css/layer.css"/>
 	<link rel="stylesheet" type="text/css" href="css/plug.css"/>
@@ -47,83 +48,91 @@
     <div class="repairstat" style="color:red;margin-left:88px"><p>维修状态</p></div>
 	</div>
 </div>
-<div class="repair" id="repair">
-	<div class="repairblock">
-	<div class="repairnum">01</div>
-    <div class="repairstat"><p>未分配</p></div>
-	</div>
-    <div class="repairbuttons">
-    <button class = "allot" type="submit" onclick="click1()">分配</button>
-	<button class = "check" type="submit" onclick="click2()">检测</button>
-	<button class = "cal" type="submit" onclick="click3()">结算</button>
-	</div>
-</div>
-<div class="repair" id="repair">
-	<div class="repairblock">
-	<div class="repairnum">02</div>
-    <div class="repairstat"><p>未分配</p></div>
-	</div>
-    <div class="repairbuttons">
-    <button class = "allot" type="submit" >分配</button>
-	<button class = "check" type="submit" >检测</button>
-	<button class = "cal" type="submit" >结算</button>
-	</div>
-</div>
-<div class="repair" id="repair">
-	<div class="repairblock">
-	<div class="repairnum">03</div>
-    <div class="repairstat"><p>分配但未检测</p></div>
-	</div>
-    <div class="repairbuttons">
-    <button class = "allot" type="submit" >分配</button>
-	<button class = "check" type="submit" >检测</button>
-	<button class = "cal" type="submit" >结算</button>
-	</div>
-</div>
-<div class="repair" id="repair">
-	<div class="repairblock">
-	<div class="repairnum">04</div>
-    <div class="repairstat"><p>检测但未完成维修</p></div>
-	</div>
 
-    <div class="repairbuttons">
-    <button class = "allot" type="submit" >分配</button>
-	<button class = "check" type="submit" >检测</button>
-	<button class = "cal" type="submit" >结算</button>
-	</div>
+<% 
+int i;
+String state = null;
+int serviceState;
+RepairListDA.initialize();
+ArrayList<RepairList> list = RepairListDA.findall(); 
+RepairListDA.terminate();
+if(list != null)
+{
+	for(i = 0;i < list.size(); i++)
+	{
+		serviceState = list.get(i).getServiceState();
+		if(serviceState == 0)
+			state = "未分配";
+		else if(serviceState == 1)
+			state = "分配未检测";
+		else if(serviceState == 2)
+			state = "检测完成维修未完成";
+		else if(serviceState == 3)
+			state = "维修完成";
+		out.print("<div class=\"repair\" id=\"repair\">"
+					+"<div class=\"repairblock\">"
+					+"<div class=\"repairnum\">" + list.get(i).getServiceID() + "</div>"
+				    +"<div class=\"repairstat\"><p>" + state + "</p></div>"
+					+"</div>"
+				    +"<div class=\"repairbuttons\" id = \"" + list.get(i).getServiceID() + "\">"
+				    +"<button class = \"allot\" type=\"submit\" onclick=\"click1(this)\">分配</button>"
+					+"<button class = \"check\" type=\"submit\" onclick=\"click2(this)\">检测</button>"
+					+"<button class = \"cal\" type=\"submit\" onclick=\"click3(this)\">结算</button>"
+					+"</div>"
+				+"</div>");
+	}
+}
+%>
 
-</div>
-<div class="repair" id="repair">
-	<div class="repairblock">
-	<div class="repairnum">05</div>
-        <div class="repairstat">
-        <p>维修完成</p>
-        </div>
-	</div>
-	<div class="repairbuttons">
-    <button class = "allot" type="submit" >分配</button>
-	<button class = "check" type="submit" >检测</button>
-	<button class = "cal" type="submit" >结算</button>
-	</div>
-</div>
-
-<div class="none">
-</div>
+<div class="none"></div>
 </body>
 </html>
 
 <script>
-function click1() {
+window.onload=function()
+{
+	type = "${sessionScope.loginer.type}";
+}
+function click1(obj) {
 event.preventDefault();
-    location.href="distribution.jsp";
+	if(type == '0')
+	{
+		var pid = $(obj).parent().attr("id");
+		
+		location.href="distribution.jsp?pid="+pid;
+	}
+    else if(type == '1')
+    {
+    	alert("你没有分配的权限！");
+	}
+	else
+		alert("请先登录");
 }
-function click2() {
+function click2(obj) {
     event.preventDefault();
-    location.href="check.jsp";
+    if(type == '1')
+	{
+	  	$.post("/EMS/GetRepairRequest",
+		{
+			ServiceID:$("#ID").val(),
+		},
+		function(data,status){
+	      	location.href="check.jsp";
+	    });
+	}
+    else if(type == '0')
+    	alert("你没有检测的权限！");
+    else
+    	alert("请先登录");
 }
-function click3() {
+function click3(obj) {
     event.preventDefault();
-    location.href="settle.jsp";
+	if(type == 0)
+	{
+		location.href="settle.jsp";
+	}
+    else
+    	alert("你没有分配的权限！");
 }
 function enter(x) {
     x.style.opacity = "0.5";
