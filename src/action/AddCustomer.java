@@ -39,7 +39,7 @@ public class AddCustomer extends HttpServlet{
 		CustomerDA.initialize();
 		req.setCharacterEncoding("UTF-8");
 		resp.setContentType("text/html;charset=utf-8");
-
+		HttpSession session = req.getSession();
 		try 
 		{
 			customerID = req.getParameter("CustomerID");

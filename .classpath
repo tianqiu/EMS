@@ -31,6 +31,6 @@
 			<attribute name="owner.project.facets" value="jst.jaxrs"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/app/qiutian/product/12.1.0/dbhome_1/jdbc/lib/ojdbc6.jar"/>
+	<classpathentry kind="lib" path="D:/oracle/product/12.1.0/dbhome_1/jdbc/lib/ojdbc6.jar"/>
 	<classpathentry kind="output" path="WebRoot/WEB-INF/classes"/>
 </classpath>
