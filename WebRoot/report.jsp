@@ -44,11 +44,12 @@
 
 
 
+
 <div class = "info">
 			<form id="myform" >
 				<div class = "contant">
 				    <div class ="tips">
-					<p style="margin-top:6px;padding:0;">   *服务编号:</p>
+					<p style="margin-top:6px;padding:0;">   *维修编号:</p>
 					</div>
 				<input type="text" placeholder="客户编号" id="serviceID"><br>
 			    </div>
@@ -211,19 +212,6 @@
 					<input type="text" placeholder="预估价格" name="password" id="estimatedprice"><br>
 				</div>
 
-				<div class = "contant">
-					<div class ="tips">
-						报修状态:
-					</div>
-					<select id="repairstate">
-						<option value=""></option>
- 						<option value="0">未打印</option>
-  						<option value="1">已打印</option>
-						<option value="2">提交</option>
-					</select><br>
-
-				</div>
-
 
                <div class = "contant">
 			    <div class ="tips">
@@ -283,10 +271,12 @@ function isnull() {
     		Others:$("#others").val(),
     		RepairTime:$("#repairtime").val(),
     		EstimatedPrice:$("#estimatedprice").val(),
-    		RepairState:$("#repairstate").val()
     	},
     	function(data,status){
-    	location.href="print.jsp";
+    		if(data == "y")
+    			location.href="print.jsp";
+    		else
+    			alert("维修编号已被使用！");
     	});
 }
 function enter(x) {

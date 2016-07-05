@@ -1,4 +1,4 @@
-<%@ page language="java" import="model.Checkout" import="java.util.*" contentType="text/html" pageEncoding="UTF-8"%>
+<%@ page language="java" import="model.*" import="java.util.*" contentType="text/html" pageEncoding="UTF-8"%>
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -42,41 +42,67 @@
 
 
 
+<%
+String serviceID = "";
+String worker = "";
+String inspectionRecord = "";
+String serviceRecord = "";
+String serviceTime = "";
+String workLoad = "";
+String neededPart = "";
 
+RepairList repairList = (RepairList)session.getAttribute("check"); 
+if(repairList != null)
+{
+	serviceID = repairList.getServiceID();
+	worker = repairList.getWorker();
+	inspectionRecord = repairList.getInspectionRecord();
+	serviceRecord = repairList.getServiceRecord();
+	serviceTime = repairList.getServiceTime();
+	workLoad = repairList.getWorkLoad();
+	neededPart = repairList.getNeededPart();
+}
+%>
 <center><h2>技工你好，你已经接受了维修任务，可以对其进行维护。</h2></center>
 <div class = "info">
-			<form id="myform" action="servlet/Login" method="post">
+			<form method="post">
 				<div class = "contant">
 				    <div class ="tips">
 					<p style="margin-top:6px;padding:0;">   *维修编号:</p>
 					</div>
-				<input type="text" placeholder="维修编号" name="ID" id="ID"><br>
+				<input type="text" placeholder="维修编号" name="ID" id="ID" readonly="true" value="<%=serviceID %>"><br>
 			    </div>
 			
 				<div class = "contant">
 					<div class ="tips">
 						维修人员:
 					</div>
-					<input type="text" placeholder="维修人员"><br>
+					<input type="text" placeholder="维修人员" readonly="true" id="workerID" value="<%=worker %>"><br>
 				</div>
 				
 				<div class = "contant">
 					<div class ="tips">
 						检测记录:
 					</div>
-					<input type="text" placeholder="检测记录"><br>
+					<input type="text" placeholder="检测记录" id="inspectionRecord" value="<%=inspectionRecord %>"><br>
 				</div>
 				<div class = "contant">
 					<div class ="tips">
 						维修记录:
 					</div>
-					<input type="text" placeholder="维修记录"><br>
+					<input type="text" placeholder="维修记录" id="serviceRecord" value="<%=serviceRecord %>"><br>
 				</div>
 				<div class = "contant">
 					<div class ="tips">
 						维修检测时间:
 					</div>
-					<input type="text" placeholder="维修检测时间"><br>
+					<input type="text" placeholder="维修检测时间" id="serviceTime" value="<%=serviceTime %>"><br>
+				</div>
+				<div class = "contant">
+					<div class ="tips">
+						工作量:
+					</div>
+					<input type="text" placeholder="维修检测时间" id="workLoad" value="<%=workLoad %>"><br>
 				</div>
 				</br>
 <center><h2>请输入需要的配件数量</h2></center>
@@ -85,29 +111,19 @@
 					<div class ="tips">
 						备件名称:
 					</div>
-					<select>
-						<option value=""></option>
- 						<option value="0">备件1</option>
-  						<option value="1">备件2</option>
-						<option value="2">备件3</option>
-					</select><br>
+					<input type="text" placeholder="备件名称" id="partName"><br>
 				</div>
 				<div class = "contant">
 					<div class ="tips">
 						备件型号:
 					</div>
-					<select>
-						<option value=""></option>
- 						<option value="0">A</option>
-  						<option value="1">B</option>
-						<option value="2">C</option>
-					</select><br>
+					<input type="text" placeholder="备件型号" id="partType"><br>
 				</div>
 				<div class = "contant">
 					<div class ="tips">
 						数量:
 					</div>
-					<input type="text" placeholder="数量"><br>
+					<input type="text" placeholder="数量" id="pNum"><br>
 				</div>
 
 
@@ -120,7 +136,7 @@
                <div class = "contant">
 			    <div class ="tips">
 			    </div>
-		        <button class = "bt" type="submit" onclick="isnull()">已完成任务</button>
+		        <button class = "bt" type="submit" onclick="done()">已完成任务</button>
 	           </div>
 				
 
@@ -144,7 +160,39 @@ function isnull() {
 	if(document.getElementById('ID').value == '')
     	alert("维修编号不能为空！");
     else
-    	location.href="repair.jsp";
+    {
+		$.post("/EMS/ChangeCheck",
+		{
+			ServiceID:$("#ID").val(),
+			Worker:$("#workerID").val(),
+			InspectionRecord:$("#inspectionRecord").val(),
+			ServiceRecord:$("#serviceRecord").val(),
+			ServiceTime:$("#serviceTime").val(),
+			WorkLoad:$("#workLoad").val(),
+			PartName:$("#partName").val(),
+			PartType:$("#partType").val(),
+			PartNum:$("#pNum").val(),
+		},
+		function(data,status){
+	      	location.href="repair.jsp";
+	    });	
+	}
+}
+function done() {
+	event.preventDefault();
+	if(document.getElementById('ID').value == '')
+    	alert("维修编号不能为空！");
+    else
+    {
+		$.post("/EMS/DoneCheck",
+		{
+			ServiceID:$("#ID").val(),
+			WorkerID:$("#workerID").val(),
+		},
+		function(data,status){
+	      	location.href="repair.jsp";
+	    });	
+	}
 }
 function enter(x) {
     x.style.opacity = "0.5";

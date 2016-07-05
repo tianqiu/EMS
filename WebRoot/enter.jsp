@@ -1,11 +1,11 @@
-<%@ page language="java" import="model.*" import="java.util.*" contentType="text/html" pageEncoding="UTF-8"%>
+<%@ page language="java" import="model.*" import="java.util.*" contentType="text/html" pageEncoding="GBK"%>
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>å®¢æˆ·ç®¡ç†</title>
+	<title>¿Í»§¹ÜÀí</title>
 	<script src="js/jquery-2.1.1.min.js" type="text/javascript"></script>
 	<link rel="stylesheet" type="text/css" href="css/plug.css"/>
 	<link rel="stylesheet" type="text/css" href="css/style.css"/>
@@ -19,19 +19,19 @@
 	<div class="buttons">
 		<ul>
 			<li>
-				<a class="aa" href="login.jsp" onmouseenter="aenter(this)" onmouseleave="aleave(this)">ç™»å½•</a>
+				<a class="aa" href="login.jsp" onmouseenter="aenter(this)" onmouseleave="aleave(this)">µÇÂ¼</a>
 			</li>
 			<li>
-				<a class="aa" href="customers.jsp" onmouseenter="aenter(this)" onmouseleave="aleave(this)">å®¢æˆ·ç®¡ç†</a>
+				<a class="aa" href="customers.jsp" onmouseenter="aenter(this)" onmouseleave="aleave(this)">¿Í»§¹ÜÀí</a>
 			</li>
 			<li>
-				<a class="aa" href="report.jsp" onmouseenter="aenter(this)" onmouseleave="aleave(this)">æŠ¥ä¿®ç®¡ç†</a>
+				<a class="aa" href="report.jsp" onmouseenter="aenter(this)" onmouseleave="aleave(this)">±¨ĞŞ¹ÜÀí</a>
 			</li>
 			<li>
-				<a class="aa" href="repair.jsp" onmouseenter="aenter(this)" onmouseleave="aleave(this)">ç»´ä¿®ç®¡ç†</a>
+				<a class="aa" href="repair.jsp" onmouseenter="aenter(this)" onmouseleave="aleave(this)">Î¬ĞŞ¹ÜÀí</a>
 			</li>
 			<li>
-				<a class="aa" href="sparepart.jsp" onmouseenter="aenter(this)" onmouseleave="aleave(this)">å¤‡ä»¶ç®¡ç†</a>
+				<a class="aa" href="sparepart.jsp" onmouseenter="aenter(this)" onmouseleave="aleave(this)">±¸¼ş¹ÜÀí</a>
 			</li>
 		</ul>
 	</div>
@@ -42,36 +42,36 @@
 	<form id="myform">
 		<div class = "contant">
 		    <div class ="tips">
-			<p style="margin-top:6px;padding:0;">   å¤‡ä»¶åç§°</p>
+			<p style="margin-top:6px;padding:0;">   ±¸¼şÃû³Æ</p>
 			</div>
-		<input type="text"   ><br>
+		<input type="text"   id="partName"><br>
 	    </div>
 
 		<div class = "contant">
 			<div class ="tips">
-			å¤‡ä»¶å‹å·ï¼š
+			±¸¼şĞÍºÅ£º
 			</div>
-			<input type="text"  id="idnum"><br>
+			<input type="text"  id="partType"><br>
 		</div>
 		
 		<div class = "contant">
 			<div class ="tips">
-			å¤‡ä»¶æ•°é‡ï¼š
+			±¸¼şÊıÁ¿£º
 			</div>
-			<input type="text" ><br>
+			<input type="text" id="partNum"><br>
 		</div>
 
 		<div class = "contant">
 			<div class ="tips">
-			å¤‡ä»¶å•ä»·ï¼š
+			±¸¼şµ¥¼Û£º
 			</div>
-			<input type="text" placeholder="ç”µè¯" ><br>
+			<input type="text" placeholder="µ¥¼Û" id="partPrice" ><br>
 		</div>
 
 	    <div class = "contant">
 			<div class ="tips">
 			</div>
-		<button onclick="back()" class = "bt" type="submit">æäº¤</button>
+		<button onclick="back()" class = "bt" type="submit">Ìá½»</button>
 	    </div>
 
 	</form>
@@ -83,9 +83,34 @@
 </html>
 
 <script>
+
+
+
 function back() {
 	event.preventDefault();
-	location.href="sparepart.jsp";
+	if(document.getElementById('partName').value == '')
+    	alert("±¸¼şÃû×Ö²»ÄÜÎª¿Õ£¡");
+    else if(document.getElementById('partType').value == '')
+    	alert("±¸¼şĞÍºÅ²»ÄÜÎª¿Õ£¡");   
+    else if(document.getElementById('partNum').Value=='')
+    	alert("±¸¼ş¸öÊı²»ÄÜÎª¿Õ£¡");
+    else if(document.getElementById('partPrice').Value=='')
+    	alert("±¸¼şµ¥¼Û²»ÄÜÎª¿Õ£¡");
+   
+  	else
+    {		
+	    $.post("/EMS/AddPart",
+		{
+			PartName:$("#partName").val(),
+			PartType:$("#partType").val(),
+			PartNum:$("#partNum").val(),
+			PartPrice:$("#partPrice").val()	
+		},
+		function(data,status){
+	      	location.href="sparepart.jsp";
+	    });	
+    }
+	
 }
 function enter(x) {
     x.style.opacity = "0.5";

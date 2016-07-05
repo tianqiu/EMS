@@ -93,15 +93,26 @@ function enterit(){
 }
 function out() {
 	event.preventDefault();
-	location.href="spareout.jsp";
+    location.href="spareout.jsp";
 }
 function sparetable(){
 	event.preventDefault();
 	location.href="sparetable.jsp";
+    $.post("/EMS/GetParts",
+	{
+	},
+	function(data,status){
+   	location.href="sparetable.jsp";
+    });
 }
 function manage(){
 	event.preventDefault();
-	location.href="spareenter.jsp";
+    $.post("/EMS/GetParts",
+	{
+	},
+	function(data,status){
+   		location.href="spareenter.jsp";
+    });
 }
 function enter(x) {
     x.style.opacity = "0.5";

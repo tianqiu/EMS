@@ -1,11 +1,11 @@
-<%@ page language="java" import="model.*" import="java.util.*" contentType="text/html" pageEncoding="UTF-8"%>
+<%@ page language="java" import="model.*"  import ="model.Part" import="java.util.*" contentType="text/html" pageEncoding="GBK"%>
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
 	<meta name="viewport" content="wclassth=device-wclassth, initial-scale=1.0">
-	<title>å…¥åº“ç®¡ç†</title>
+	<title>Èë¿â¹ÜÀí</title>
 	<script src="js/jquery-2.1.1.min.js" type="text/javascript"></script>
 	<script src="js/layer.js" type="text/javascript"></script>
 	<link rel="stylesheet" type="text/css" href="css/layer.css"/>
@@ -22,19 +22,19 @@
 	<div class="buttons">
 		<ul>
 			<li>
-				<a class="aa" href="login.jsp" onmouseenter="aenter(this)" onmouseleave="aleave(this)">ç™»å½•</a>
+				<a class="aa" href="login.jsp" onmouseenter="aenter(this)" onmouseleave="aleave(this)">µÇÂ¼</a>
 			</li>
 			<li>
-				<a class="aa" href="customers.jsp" onmouseenter="aenter(this)" onmouseleave="aleave(this)">å®¢æˆ·ç®¡ç†</a>
+				<a class="aa" href="customers.jsp" onmouseenter="aenter(this)" onmouseleave="aleave(this)">¿Í»§¹ÜÀí</a>
 			</li>
 			<li>
-				<a class="aa" href="report.jsp" onmouseenter="aenter(this)" onmouseleave="aleave(this)">æŠ¥ä¿®ç®¡ç†</a>
+				<a class="aa" href="report.jsp" onmouseenter="aenter(this)" onmouseleave="aleave(this)">±¨ĞŞ¹ÜÀí</a>
 			</li>
 			<li>
-				<a class="aa" href="repair.jsp" onmouseenter="aenter(this)" onmouseleave="aleave(this)">ç»´ä¿®ç®¡ç†</a>
+				<a class="aa" href="repair.jsp" onmouseenter="aenter(this)" onmouseleave="aleave(this)">Î¬ĞŞ¹ÜÀí</a>
 			</li>
 			<li>
-				<a class="aa" href="sparepart.jsp" onmouseenter="aenter(this)" onmouseleave="aleave(this)">å¤‡ä»¶ç®¡ç†</a>
+				<a class="aa" href="sparepart.jsp" onmouseenter="aenter(this)" onmouseleave="aleave(this)">±¸¼ş¹ÜÀí</a>
 			</li>
 		</ul>
 	</div>
@@ -46,186 +46,96 @@
 	<div class="centerpart">
 		<div class="outenterbuttons">
 			<div class="partname" style="color:red">
-				å¤‡ä»¶åç§°
+				±¸¼şÃû³Æ
 			</div>
 			<div class="parttype" style="color:red">
-				å¤‡ä»¶å‹å·
+				±¸¼şĞÍºÅ
 			</div>
 			<div class="partprice" style="color:red">
-				å¤‡ä»¶ä»·æ ¼
+				±¸¼ş¼Û¸ñ
 			</div>
 			<div class="remainpart" style="color:red">
-				å‰©ä½™å¤‡ä»¶
+				Ê£Óà±¸¼ş
 			</div>
 			<div class="entertime" style="color:red">
-				å…¥åº“æ—¶é—´
+				Èë¿âÊ±¼ä
 			</div>
 			<div class="dangerousnumber" style="color:red">
-				è­¦æˆ’æ•°é‡
+				¾¯½äÊıÁ¿
 			</div>
 			<div class="status" style="color:red">
-				åº“å­˜çŠ¶æ€
+				¿â´æ×´Ì¬
 			</div>
 		</div>
-		<div class="outenterbuttons">
+<!-- 		<div class="outenterbuttons">
 			<div class="partname">
-				å¤‡ä»¶1
+				±¸¼ş1
 			</div>
 			<div class="parttype">
-				Aå‹
+				AĞÍ
 			</div>
 			<div class="partprice">
-				1å…ƒ
+				1Ôª
 			</div>
 			<div class="remainpart">
-				å‰©ä½™1ä»¶
+				Ê£Óà1¼ş
 			</div>
 			<div class="entertime">
 				2016.6.28
 			</div>
 			<div class="dangerousnumber">
-				2ä»¶
+				2¼ş
 			</div>
 			<div class="status">
-				æ­£å¸¸
+				Õı³£
 			</div>
 			<div class="enterbutton">
-				<button class = "allot" type="submit" onclick="bbb()">ç®¡ç†</button>
+				<button class = "allot" type="submit" onclick="bbb()">¹ÜÀí</button>
 			</div>
-		</div>
-		<div class="outenterbuttons">
-			<div class="partname">
-				å¤‡ä»¶1
-			</div>
-			<div class="parttype">
-				Bå‹
-			</div>
-			<div class="partprice">
-				äº”æ¯›
-			</div>
-			<div class="remainpart">
-				å‰©ä½™1ä»¶
-			</div>
-			<div class="entertime">
-				2016.6.28
-			</div>
-			<div class="dangerousnumber">
-				2ä»¶
-			</div>
-			<div class="status">
-				æ­£å¸¸
-			</div>
-			<div class="enterbutton">
-				<button class = "allot" type="submit" onclick="bbb()">ç®¡ç†</button>
-			</div>
-		</div>
-		<div class="outenterbuttons">
-			<div class="partname">
-				å¤‡ä»¶2
-			</div>
-			<div class="parttype">
-				Aå‹
-			</div>
-			<div class="partprice">
-				äº”æ¯›
-			</div>
-			<div class="remainpart">
-				å‰©ä½™1ä»¶
-			</div>
-			<div class="entertime">
-				2016.6.28
-			</div>
-			<div class="dangerousnumber">
-				2ä»¶
-			</div>
-			<div class="status">
-				æ­£å¸¸
-			</div>
-			<div class="enterbutton">
-				<button class = "allot" type="submit" onclick="bbb()">ç®¡ç†</button>
-			</div>
-		</div>
-		<div class="outenterbuttons">
-			<div class="partname">
-				å¤‡ä»¶2
-			</div>
-			<div class="parttype">
-				Bå‹
-			</div>
-			<div class="partprice">
-				äº”æ¯›
-			</div>
-			<div class="remainpart">
-				å‰©ä½™1ä»¶
-			</div>
-			<div class="entertime">
-				2016.6.28
-			</div>
-			<div class="dangerousnumber">
-				2ä»¶
-			</div>
-			<div class="status">
-				æ­£å¸¸
-			</div>
-			<div class="enterbutton">
-				<button class = "allot" type="submit" onclick="bbb()">ç®¡ç†</button>
-			</div>
-		</div>
-		<div class="outenterbuttons">
-			<div class="partname">
-				å¤‡ä»¶3
-			</div>
-			<div class="parttype">
-				Aå‹
-			</div>
-			<div class="partprice">
-				äº”æ¯›
-			</div>
-			<div class="remainpart">
-				å‰©ä½™1ä»¶
-			</div>
-			<div class="entertime">
-				2016.6.28
-			</div>
-			<div class="dangerousnumber">
-				2ä»¶
-			</div>
-			<div class="status">
-				æ­£å¸¸
-			</div>
-			<div class="enterbutton">
-				<button class = "allot" type="submit" onclick="bbb()">ç®¡ç†</button>
-			</div>
-		</div>
-		<div class="outenterbuttons">
-			<div class="partname">
-				å¤‡ä»¶3
-			</div>
-			<div class="parttype">
-				Bå‹
-			</div>
-			<div class="partprice">
-				äº”æ¯›
-			</div>
-			<div class="remainpart">
-				å‰©ä½™1ä»¶
-			</div>
-			<div class="entertime">
-				2016.6.28
-			</div>
-			<div class="dangerousnumber">
-				2ä»¶
-			</div>
-			<div class="status">
-				æ­£å¸¸
-			</div>
-			<div class="enterbutton">
-				<button class = "allot" type="submit" onclick="bbb()">ç®¡ç†</button>
-			</div>
-		</div>		
+		</div>	 -->
 	</div>
 </div>
 
+<%
+int i;
+int state;
+int num;
+String stState;
+ArrayList<Part> list = (ArrayList<Part>)session.getAttribute("partList"); 
+if(list != null)
+{
+	for(i = 0;i < list.size(); i++)
+	{
+		state = list.get(i).getWarnNum();
+		num = list.get(i).getNum();
+		if(num > state)
+			stState = "Õı³£";
+		else if(num == state)
+			stState = "ÁÙ½ç";
+		else if(num < state)
+			stState = "¾¯½ä";
+		else if(num == 0)
+			stState = "È±»õ";
+		else
+			stState = "";
+			
+			out.print(	"<div class=\"container\">"
+							+"<div class=\"centerpart\" id=\""+list.get(i).getPartName()+"\">"
+							+"<div class=\"outenterbuttons\" id=\""+list.get(i).getType()+"\">"			
+							+"<div class=\"partname\">"+list.get(i).getPartName()+"</div>"
+							+"<div class=\"parttype\">"+list.get(i).getType()+"</div>"
+							+"<div class=\"partprice\">" + list.get(i).getPrice() + "</div>"
+							+"<div class=\"remainpart\">" + list.get(i).getNum() + "</div>"
+							+"<div class=\"entertime\">" + list.get(i).getDate() + "</div>"
+							+"<div class=\"dangerousnumber\">" + list.get(i).getWarnNum() + "</div>"
+			   			    +"<div class=\"status\">" + stState + "</div>"
+							+"<button class = \"allot\" type=\"submit\" onclick=\"change(this)\">¹ÜÀí</button>"	
+						+"</div>"	
+						+"</div>"
+						+"</div>");
+	}
+}
+%>
 	<div class="footer">
 		<div class="none">
 		</div>
@@ -238,8 +148,25 @@
 </html>
 
 <script>
+
+function change(obj) {
+	event.preventDefault();
+	var pid = $(obj).parent().attr("id");
+	var ppid = $(obj).parent().parent().attr("id");
+	var x = prompt('ÇëÊäÈëÉèÖÃµÄ¾¯±¸ÊıÄ¿£º', 0);
+    $.post("/EMS/ChangeWarn",
+	{
+		PartName:ppid,
+		PartType:pid,
+		WarnNum:x
+	},
+	function(data,status){
+      	location.reload();
+    });	
+}
+
 function bbb() {
-	prompt('è¯·è¾“å…¥è®¾ç½®çš„è­¦å¤‡æ•°ç›®ï¼š', 0);
+	prompt('ÇëÊäÈëÉèÖÃµÄ¾¯±¸ÊıÄ¿£º', 0);
 }
 function enter(x) {
     x.style.opacity = "0.5";

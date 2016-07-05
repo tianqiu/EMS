@@ -71,7 +71,7 @@ public class PartDA{
 	     inventoryState=inpart.getInventoryState();  
 	     try
 		    {
-		        String sql = "INSERT INTO PART (PARTNAME,TYPE,PRICE,NUM,DATE,WARNNUM,INVENORYSTATE) "
+		        String sql = "INSERT INTO PART (PARTNAME,TYPE,PRICE,NUM,INTIME,WARNNUM,INVENTORYSTATE) "
 		                     +"VALUES ('"+partName+"','"+type+"','"+price+"','"+num+"','"+date+"','"+warnNum+"','"+inventoryState+"')";
 		        pre = con.prepareStatement(sql);
 		        pre.executeUpdate();
@@ -96,9 +96,9 @@ public class PartDA{
 	     inventoryState=inpart.getInventoryState();  
 		
 		try{
-			  String sql = "Update PART SET  TYPE = '"+type+"',"+" PRICE = '"+price+"',"
-        		      +" NUM = '"+num+"',"+" DATE = '"+date+"',"+" WARNNUM = '"
-                      +warnNum+"',"+" INVENTORYSTATE = '"+inventoryState+"'"+" WHERE PARTNAME="+partName;
+			  String sql = "Update PART SET PRICE = "+price+","
+        		      +" NUM = "+num+","+" INTIME = '"+date+"',"+" WARNNUM = "
+                      +warnNum+","+" INVENTORYSTATE = '"+inventoryState+"'"+" WHERE PARTNAME="+partName+" AND TYPE = '"+ type +"'";
 			pre = con.prepareStatement(sql);
 			pre.executeUpdate();
 		}
@@ -156,7 +156,7 @@ public class PartDA{
 		            type=rs.getString("TYPE");
 		            price=rs.getInt("PRICE");
 		            num=rs.getInt("NUM");
-		            date=rs.getString("DATE");
+		            date=rs.getString("INTIME");
 		            warnNum=rs.getInt("WARNNUM");
 		            inventoryState=rs.getInt("INVENTORYSTATE");
 		        	
@@ -190,7 +190,7 @@ public class PartDA{
 		            type=rs.getString("TYPE");
 		            price=rs.getInt("PRICE");
 		            num=rs.getInt("NUM");
-		            date=rs.getString("DATE");
+		            date=rs.getString("INTIME");
 		            warnNum=rs.getInt("WARNNUM");
 		            inventoryState=rs.getInt("INVENTORYSTATE");
 		        	

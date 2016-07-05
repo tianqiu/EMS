@@ -37,6 +37,48 @@
     <servlet-name>AddRepairRequest</servlet-name>
     <servlet-class>action.AddRepairRequest</servlet-class>
   </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>Check</servlet-name>
+    <servlet-class>action.Check</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>ChangeCheck</servlet-name>
+    <servlet-class>action.ChangeCheck</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>DoneCheck</servlet-name>
+    <servlet-class>action.DoneCheck</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>AddPart</servlet-name>
+    <servlet-class>action.AddPart</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>GetParts</servlet-name>
+    <servlet-class>action.GetParts</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>ChangeWarn</servlet-name>
+    <servlet-class>action.ChangeWarn</servlet-class>
+  </servlet>
+
+
+
+
+
+
 
 
 
@@ -65,5 +107,29 @@
   <servlet-mapping>
     <servlet-name>AddRepairRequest</servlet-name>
     <url-pattern>/EMS/AddRepairRequest</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>Check</servlet-name>
+    <url-pattern>/EMS/Check</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>ChangeCheck</servlet-name>
+    <url-pattern>/EMS/ChangeCheck</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>DoneCheck</servlet-name>
+    <url-pattern>/EMS/DoneCheck</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>AddPart</servlet-name>
+    <url-pattern>/EMS/AddPart</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>GetParts</servlet-name>
+    <url-pattern>/EMS/GetParts</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>ChangeWarn</servlet-name>
+    <url-pattern>/EMS/ChangeWarn</url-pattern>
   </servlet-mapping>
 </web-app>

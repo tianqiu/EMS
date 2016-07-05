@@ -112,12 +112,18 @@ function click2(obj) {
     event.preventDefault();
     if(type == '1')
 	{
-	  	$.post("/EMS/GetRepairRequest",
+		var pid = $(obj).parent().attr("id");
+		var workerID = "${sessionScope.loginer.loginID}";
+	  	$.post("/EMS/Check",
 		{
-			ServiceID:$("#ID").val(),
+			ServiceID:pid,
+			WorkerID:workerID
 		},
 		function(data,status){
-	      	location.href="check.jsp";
+			if(data == "y")
+	      		location.href="check.jsp";
+	      	else
+	      		alert("这个任务没有分配给你！");
 	    });
 	}
     else if(type == '0')

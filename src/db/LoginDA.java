@@ -145,7 +145,7 @@ public class LoginDA{
 
 		try
 	    {
-			String sql = "Update PART SET  PASSWORD = '"+password+"',"+" TYPE = '"+type+"',"+" STATE = '"
+			String sql = "Update LOGINER SET  PASSWORD = '"+password+"',"+" TYPE = '"+type+"',"+" STATE = '"
                     	 +state+"'" +" WHERE LOGINID="+loginID;
 	        pre = con.prepareStatement(sql);
 	        pre.executeUpdate();
@@ -160,7 +160,7 @@ public class LoginDA{
 	{
 		try
 	    {
-			String sql = "Update PART SET  STATE = '" + instate +"' WHERE LOGINID="+loginID;
+			String sql = "Update LOGINER SET  STATE = " + instate +" WHERE LOGINID = '"+inloginID+"'";
 	        pre = con.prepareStatement(sql);
 	        pre.executeUpdate();
 	    }

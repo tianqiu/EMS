@@ -68,7 +68,7 @@ public class PartRequestListDA{
 		  try
 		    {
 		        String sql = "INSERT INTO PARTREQUESTLIST (PARTNAME,TYPE,SERVICEID,NUM,PRICE,DELIVERYTIME) "
-		                     +"VALUES ('"+partName+"','"+type+"','"+serviceID+"','"+num+"','"+price+"','"+deliveryTime+"')";
+		                     +"VALUES ('"+partName+"','"+type+"','"+serviceID+"',"+num+","+price+",'"+deliveryTime+"')";
 		        pre = con.prepareStatement(sql);
 		        pre.executeUpdate();
 		       
@@ -87,7 +87,7 @@ public class PartRequestListDA{
 		
 		try
     {
-        String sql = "DELETE FROM PARTREQUESTLIST "+"WHERE SERVICEID=" + inserviceID;
+        String sql = "DELETE FROM PARTREQUESTLIST "+"WHERE SERVICEID='" + inserviceID+"'";
         pre = con.prepareStatement(sql);
         pre.executeUpdate();
     }
